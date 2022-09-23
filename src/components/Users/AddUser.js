@@ -3,7 +3,7 @@ import { Button } from "../UI/Button";
 import { Card } from "../UI/Card";
 import styled from "./AddUser.module.css";
 
-export const AddUser = () => {
+export const AddUser = ({ onAddUser }) => {
     const [enteredName, setEnteredName] = useState("");
     const [enteredSurname, setEnteredSurname] = useState("");
     const [enteredAge, setEnteredAge] = useState("");
@@ -23,9 +23,12 @@ export const AddUser = () => {
             return;
         }
 
+        onAddUser(enteredName, enteredSurname, enteredAge);
+        
         setEnteredAge("");
         setEnteredName("");
         setEnteredSurname("");
+
     };
 
     const userNameChangeHandler = (e) => {
