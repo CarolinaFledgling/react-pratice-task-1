@@ -7,19 +7,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: sans-serif;
+  font-family: Arial;
+  color: #020826;
 }
 
 body {
   margin: 0;
+  background-color: #f9f4ef;
 }
