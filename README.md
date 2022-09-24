@@ -3,7 +3,6 @@
 In that small project I wanted to practice all these core patterns and concepts that are important for React,
 like components, props, state, lifting state, styling…
 
-## The main idea of working with React :
 
 - where we create a bunch of reused components, 🚀
 - where they have small isolated pieces of HTML code and logic 🚀
@@ -14,7 +13,7 @@ like components, props, state, lifting state, styling…
 - Practicing building reused components 🚀
 - Showing Error Modal 🚀
 - Conditional Loading Message 🚀
-- Handling added and delete user form the list 🚀
+- Handling added and delete user form in the list 🚀
 
 ## Run Locally
 
