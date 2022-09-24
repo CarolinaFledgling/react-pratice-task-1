@@ -4,8 +4,8 @@ import styled from "./UserList.module.css";
 
 export const UserList = ({ users }) => {
     console.log(users)
-    return (
-        <Card className={styled.users}>
+    return (<>
+        {users.length > 1 ? <Card className={styled.users}>
             <ul>
                 {users?.map((user, index) => {
                     return (
@@ -15,6 +15,7 @@ export const UserList = ({ users }) => {
                     )
                 })}
             </ul>
-        </Card>
+        </Card> : ''}</>
+
     )
 }
