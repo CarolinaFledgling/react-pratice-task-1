@@ -9,6 +9,8 @@ export const AddUser = ({ onAddUser }) => {
     const [enteredSurname, setEnteredSurname] = useState("");
     const [enteredAge, setEnteredAge] = useState("");
 
+    const [error, setError] = useState()
+
     const addUserHandler = (e) => {
         e.preventDefault();
 
@@ -17,10 +19,18 @@ export const AddUser = ({ onAddUser }) => {
             enteredName.trim().length === 0 ||
             enteredSurname.trim().length === 0
         ) {
+            setError({
+                title: 'We have a error',
+                message: 'Please enter a valid name, surname, and age'
+            })
             return;
         }
         // to be safe force a conversion of entered age to a number
         if (+enteredAge < 1) {
+            setError({
+                title: 'Invalid field Age',
+                message: 'Please enter a valid Age (> 0) '
+            })
             return;
         }
 
@@ -41,9 +51,13 @@ export const AddUser = ({ onAddUser }) => {
     const userAgeChangeHandler = (e) => {
         setEnteredAge(e.target.value);
     };
+
+    const errorHandler = () => {
+        setError(null)
+    }
     return (
         <>
-            <ErrorModal title="An error occurred!" message='Something went wrong!' />
+            {error && <ErrorModal title={error.title} message={error.message} errorHandler={errorHandler} />}
             <Card className={styled.input}>
                 <form onSubmit={addUserHandler}>
                     <label htmlFor="username">Username</label>
