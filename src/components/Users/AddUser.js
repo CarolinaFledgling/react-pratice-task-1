@@ -55,6 +55,8 @@ export const AddUser = ({ onAddUser }) => {
     const errorHandler = () => {
         setError(null)
     }
+
+
     return (
         <>
             {error && <ErrorModal title={error.title} message={error.message} errorHandler={errorHandler} />}

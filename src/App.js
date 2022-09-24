@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { AddUser } from "./components/Users/AddUser";
 import { UserList } from "./components/Users/UserList";
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const [usersList, setUsersList] = useState([]);
@@ -13,6 +14,7 @@ function App() {
     setUsersList((prevUserList) => {
       return (
         [...prevUserList, {
+          id: uuidv4(),
           name: userName,
           surname: userSurname,
           age: age,
@@ -22,10 +24,20 @@ function App() {
     });
   };
 
+  const deleteUserHandler = (id) => {
+    console.log(id)
+
+    const filteredUser = usersList.filter((user) => {
+      return user.id !== id
+    })
+
+    setUsersList(filteredUser)
+  }
+
   return (
     <div className="App">
       <AddUser onAddUser={addUserHandler} />
-      <UserList users={usersList} />
+      <UserList users={usersList} deleteUserHandler={deleteUserHandler} />
     </div>
   );
 }
