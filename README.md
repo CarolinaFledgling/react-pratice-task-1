@@ -13,7 +13,8 @@ like components, props, state, lifting state, styling…
 - Showing Error Modal 🚀
 - Conditional Loading Message 🚀
 - Handling added and delete user form in the list 🚀
-- Implementing modal using React Portal approach.
+- Implementing modal using React Portal approach 🚀
+- Adding LocalStorage, to save added users 🚀
 
 ## What I learned :
 
@@ -32,7 +33,7 @@ Portals need two things.
 
 More about Portal in React : [Portal](https://reactjs.org/docs/portals.html#gatsby-focus-wrapper)
 
-🔥 LocalStorage
+🔥 I used LocalStorage
 
 LocalStorage is the web Storage API, store data even the browser is closed with no expiration date.
 
