@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Wrapper } from "../Helpers/Wrapper";
 import { Button } from "../UI/Button";
 import { Card } from "../UI/Card";
 import { ErrorModal } from "../UI/ErrorModal";
 import styled from "./AddUser.module.css";
+import { UserList } from "./UserList";
 
-export const AddUser = ({ onAddUser }) => {
+const ButtonMemo = memo(() => <Button type="submit">Add User</Button>)
+
+export const AddUser = ({ onAddUser, users, deleteUserHandler }) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredSurname, setEnteredSurname] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
@@ -57,40 +60,43 @@ export const AddUser = ({ onAddUser }) => {
   };
 
   return (
-    <Wrapper>
-      {error && (
-        <ErrorModal
-          title={error.title}
-          message={error.message}
-          errorHandler={errorHandler}
-        />
-      )}
-      <Card className={styled.input}>
-        <form onSubmit={addUserHandler}>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            value={enteredName}
-            onChange={userNameChangeHandler}
+    <div>
+      <Wrapper>
+        {error && (
+          <ErrorModal
+            title={error.title}
+            message={error.message}
+            errorHandler={errorHandler}
           />
-          <label htmlFor="surname">Surname</label>
-          <input
-            id="surname"
-            type="text"
-            value={enteredSurname}
-            onChange={userSurnameChangeHandler}
-          />
-          <label htmlFor="age">Age</label>
-          <input
-            id="age"
-            type="number"
-            value={enteredAge}
-            onChange={userAgeChangeHandler}
-          />
-          <Button type="submit">Add User</Button>
-        </form>
-      </Card>
-    </Wrapper>
+        )}
+        <Card className={styled.input}>
+          <form onSubmit={addUserHandler}>
+            <label htmlFor="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              value={enteredName}
+              onChange={userNameChangeHandler}
+            />
+            <label htmlFor="surname">Surname</label>
+            <input
+              id="surname"
+              type="text"
+              value={enteredSurname}
+              onChange={userSurnameChangeHandler}
+            />
+            <label htmlFor="age">Age</label>
+            <input
+              id="age"
+              type="number"
+              value={enteredAge}
+              onChange={userAgeChangeHandler}
+            />
+            <ButtonMemo />
+          </form>
+        </Card>
+      </Wrapper>
+      <UserList users={users} deleteUserHandler={deleteUserHandler} />
+    </div>
   );
 };

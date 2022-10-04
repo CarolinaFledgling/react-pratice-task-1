@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Button } from "../UI/Button";
 import { Card } from "../UI/Card";
 import styled from "./UserList.module.css";
 
-export const UserList = ({ users, deleteUserHandler }) => {
+const UserListElement = React.memo(({ user, deleteUserHandler }) => {
+    return <li className={styled.wrapperElement}>
+        <p>
+            {user.name} {user.surname}, {user.age} years old
+        </p>
+        <Button onClick={() => deleteUserHandler(user.id)}>Delete</Button>
+    </li>;
+})
+
+export const UserList = React.memo(({ users, deleteUserHandler }) => {
     console.log(users);
-
-
-
+    
     return (
         <>
             <Card className={styled.users}>
@@ -17,13 +24,8 @@ export const UserList = ({ users, deleteUserHandler }) => {
                     <ul>
                         {users.map((user) => {
                             return (
+                                <UserListElement key={user.id} user={user} deleteUserHandler={deleteUserHandler} />
 
-                                <li key={user.id} className={styled.wrapperElement}>
-                                    <p>
-                                        {user.name} {user.surname}, {user.age} years old
-                                    </p>
-                                    <Button onClick={()=>deleteUserHandler(user.id)}>Delete</Button>
-                                </li>
                             );
                         })}
                     </ul>
@@ -31,4 +33,4 @@ export const UserList = ({ users, deleteUserHandler }) => {
             </Card>
         </>
     );
-};
+});
