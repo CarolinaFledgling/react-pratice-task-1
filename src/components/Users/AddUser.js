@@ -8,7 +8,7 @@ import { UserList } from "./UserList";
 
 const ButtonMemo = memo(() => <Button type="submit">Add User</Button>)
 
-export const AddUser = ({  users, deleteUserHandler, dispatch }) => {
+export const AddUser = ({  users, dispatch }) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredSurname, setEnteredSurname] = useState("");
   const [enteredAge, setEnteredAge] = useState("");

@@ -15,16 +15,63 @@ function reducerFn(latestState, actionDispatched) {
     return [...latestState, newUser]
   }
 
-  if( actionDispatched.type === 'DELETE_USER'){
+  if (actionDispatched.type === 'DELETE_USER') {
     const filteredUser = latestState.filter((user) => {
       return user.id !== actionDispatched.id
     })
 
     return filteredUser
   }
+
+  if (actionDispatched.type === 'RESET_AGE') {
+
+    return latestState.map((user) => {
+      if (user.id === actionDispatched.id) {
+        return {
+          ...user,
+          age: 0
+        }
+      }
+      return user
+    })
+  }
+
+
+  if (actionDispatched.type === 'RESET_SURNAME') {
+    // return a new array with the list of users, but only in intended user we change the surname 
+    const newUserList = latestState.map((user) => {
+      if (user.id === actionDispatched.id) {
+        return {
+          ...user,
+          surname: 'Kowalski'
+        }
+      }
+      return user
+    })
+    return newUserList
+  }
+
+  if (actionDispatched.type === 'DELETE_ALL') {
+
+    return []
+  }
+
+
   // throw new Error();
   return latestState
 }
+
+
+// TASKS TO DO , add btns
+
+// Delete all 
+// Reset all ages to 0
+// Sort by AGE
+// EDIT 
+
+
+
+
 
 
 function App() {
@@ -49,7 +96,7 @@ function App() {
 
   return (
     <div className="App">
-      <AddUser dispatch={dispatch} users={usersList}  />
+      <AddUser dispatch={dispatch} users={usersList} />
     </div>
   );
 }
