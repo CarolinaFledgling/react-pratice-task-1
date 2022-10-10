@@ -47,25 +47,9 @@ function App() {
 
 
 
-  const addUserHandler = (userName, userSurname, age) => {
-
-    console.log(userName, userSurname, age)
-
-    dispatch({ type: 'NEW_USER', name: userName, surname: userSurname, age: age })
-
-  };
-
-  const deleteUserHandler = useCallback((id) => {
-    console.log(id)
-
-    dispatch({type:'DELETE_USER', id:id})
-
-
-  }, [])
-
   return (
     <div className="App">
-      <AddUser onAddUser={addUserHandler} users={usersList} deleteUserHandler={deleteUserHandler} />
+      <AddUser dispatch={dispatch} users={usersList}  />
     </div>
   );
 }

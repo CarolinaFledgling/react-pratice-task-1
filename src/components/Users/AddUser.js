@@ -8,7 +8,7 @@ import { UserList } from "./UserList";
 
 const ButtonMemo = memo(() => <Button type="submit">Add User</Button>)
 
-export const AddUser = ({ onAddUser, users, deleteUserHandler }) => {
+export const AddUser = ({  users, deleteUserHandler, dispatch }) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredSurname, setEnteredSurname] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
@@ -38,7 +38,8 @@ export const AddUser = ({ onAddUser, users, deleteUserHandler }) => {
       return;
     }
 
-    onAddUser(enteredName, enteredSurname, enteredAge);
+    dispatch({ type: 'NEW_USER', name: enteredName, surname: enteredSurname, age: enteredAge })
+  
 
     setEnteredAge("");
     setEnteredName("");
@@ -96,7 +97,7 @@ export const AddUser = ({ onAddUser, users, deleteUserHandler }) => {
           </form>
         </Card>
       </Wrapper>
-      <UserList users={users} deleteUserHandler={deleteUserHandler} />
+      <UserList users={users} dispatch={dispatch}  />
     </div>
   );
 };
