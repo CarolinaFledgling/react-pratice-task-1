@@ -1,7 +1,8 @@
-import { useReducer } from "react";
+import { useReducer,useEffect } from "react";
 import "./App.css";
 import { AddUser } from "./components/Users/AddUser";
 import { v4 as uuidv4 } from 'uuid';
+import { Toolbar } from "./components/Toolbar/Toolbar";
 
 function reducerFn(latestState, actionDispatched) {
 
@@ -72,8 +73,10 @@ function reducerFn(latestState, actionDispatched) {
 }
 
 
-// [TODO] TASKS TO DO , add buttons in the Toolbar
 
+
+
+// [TODO] TASKS TO DO , add buttons in the Toolbar
 // Delete all 
 // Reset all ages to 0
 // Sort by AGE
@@ -81,31 +84,34 @@ function reducerFn(latestState, actionDispatched) {
 
 
 
-
-
+// here we can add initial values if we want 
+const initState = [];
 
 function App() {
 
-  const [usersList, dispatch] = useReducer(reducerFn, [])
+  // callback fn will get initState
+  const [usersList, dispatch] = useReducer(reducerFn, initState, (initState) => {
+    const localStorageValue = localStorage.getItem('users');
+    if (localStorageValue) {
+      const users = JSON.parse(localStorageValue);
+      return users;
+    }
+    return initState;
 
-  // const [usersList, setUsersList] = useState(() => {
-  //   const localStorageValue = localStorage.getItem('users');
-  //   if (localStorageValue) {
-  //     const users = JSON.parse(localStorageValue);
-  //     return users;
-  //   }
-  //   return [];
-  // });
+  })
 
-  // useEffect(() => {
-  //   localStorage.setItem('users', JSON.stringify(usersList));
-  // }, [usersList])
+
+
+  useEffect(() => {
+    localStorage.setItem('users', JSON.stringify(usersList));
+  }, [usersList])
 
 
 
 
   return (
     <div className="App">
+      <Toolbar dispatch={dispatch} />
       <AddUser dispatch={dispatch} users={usersList} />
     </div>
   );

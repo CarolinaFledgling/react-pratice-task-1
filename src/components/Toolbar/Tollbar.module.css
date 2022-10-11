@@ -1,0 +1,16 @@
+/* TOOLBAR */
+
+.toolbar {
+  display: flex;
+
+  align-items: center;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 40rem;
+  background-color: #ccc;
+  padding: 15px;
+}
+
+.btn {
+  background-color: blueviolet;
+}

@@ -33,10 +33,7 @@ export const UserList = React.memo(({ users, dispatch }) => {
 
     return (
         <>
-            <Card className={styled.toolbar}>
-                <Button className={styled.btn} onClick={() => dispatch({ type: 'DELETE_ALL' })}>DELETE ALL USERS</Button>
-                <Button className={styled.btn} onClick={() => dispatch({ type: 'RESET_ALL_AGES' })}>RESET ALL AGES</Button>
-            </Card>
+
             <Card className={styled.users}>
                 {users.length === 0 ? (
                     ""
