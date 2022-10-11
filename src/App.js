@@ -27,9 +27,11 @@ function reducerFn(latestState, actionDispatched) {
   if (actionDispatched.type === 'RESET_AGE') {
 
     return latestState.map((user) => {
-      console.log('user from disptach action', { user })
+      // console.log('user from disptach action', { user })
+
       if (user.id === actionDispatched.id) {
-        console.log('user from id action', { user })
+
+        // console.log('user from id action', { user })
         return {
           ...user,
           age: 0
@@ -54,20 +56,8 @@ function reducerFn(latestState, actionDispatched) {
     return newUserList
   }
 
-  if (actionDispatched.type === 'DELETE_ALL') {
-    return []
-  }
 
-  if (actionDispatched.type === 'RESET_ALL_AGES') {
-    return latestState.map((user) => {
-      return {
-        ...user,
-        age: 0
-      }
-    })
-  }
-
-  if (actionDispatched.type === 'EDIT_USER') {
+  if (actionDispatched.type === 'START_EDIT_USER') {
     const newListUser = latestState.map((user) => {
       if (user.id === actionDispatched.id) {
         return {
@@ -81,16 +71,85 @@ function reducerFn(latestState, actionDispatched) {
   }
 
   if (actionDispatched.type === 'SAVE_EDIT_USER') {
-    const newEditedUser = {
-      id: uuidv4(),
-      name: actionDispatched.name,
-      surname: actionDispatched.surname,
-      age: actionDispatched.age,
-      isEdit: false,
-    }
-    return [...latestState, newEditedUser]
+    // console.log('action user', actionDispatched)
+    const newListUser = latestState.map((user) => {
+      if (user.id === actionDispatched.id) {
+        // console.log('edit user', user)
+        return {
+          ...user,
+          name: actionDispatched.name,
+          surname: actionDispatched.surname,
+          age: actionDispatched.age,
+          isEdit: false,
+        }
+
+      }
+
+      return user
+    })
+    return newListUser
 
   }
+
+
+
+  // TOOLBAR actions 
+
+  if (actionDispatched.type === 'DELETE_ALL') {
+    return []
+  }
+
+  if (actionDispatched.type === 'RESET_ALL_AGES') {
+    return latestState.map((user) => {
+      return {
+        ...user,
+        age: 0
+      }
+    })
+  }
+
+  if (actionDispatched.type === 'SEARCH_VALUE') {
+    // console.log('search user', actionDispatched)
+
+    // const filteredArray = latestState.filter(user => user.name.toLowerCase().includes(actionDispatched.toLowerCase()))
+
+    // return filteredArray
+
+
+  }
+
+
+  if (actionDispatched.type === 'SORT_BY_AGES') {
+
+    console.log('sort', actionDispatched)
+
+    const sortUsersArray = [...latestState]
+
+    sortUsersArray.sort(function (elemA, elemB) {
+
+      console.log('sort array', sortUsersArray)
+      const userA = elemA.age
+      const userB = elemB.age
+
+      
+      if (userA < userB) {
+
+        return 1;
+      }
+
+      if (userB > userA) {
+        return -1;
+      }
+
+    
+      return 0
+    
+    })
+    //console.log('sort', sortUsersArray)
+
+    return sortUsersArray
+  }
+
 
 
   // throw new Error();

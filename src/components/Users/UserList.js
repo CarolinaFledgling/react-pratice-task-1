@@ -18,7 +18,7 @@ const UserListElement = React.memo(({ user, dispatch }) => {
             <Button onClick={() => dispatch({ type: 'DELETE_USER', id: user.id })}>Delete</Button>
             <Button onClick={() => dispatch({ type: 'RESET_AGE', id: user.id })}>Reset Age to 0</Button>
             <Button onClick={() => dispatch({ type: 'RESET_SURNAME', id: user.id })}>Reset SURNAME TO 'Kowalski' </Button>
-            <Button onClick={() => dispatch({ type: 'EDIT_USER', id: user.id })}>Edit</Button>
+            <Button onClick={() => dispatch({ type: 'START_EDIT_USER', id: user.id })}>Edit</Button>
         </div>
     </li>;
 })

@@ -6,9 +6,9 @@ import styled from './UserEditElement.module.css'
 
 
 export const UserEditElement = React.memo(({ user, dispatch }) => {
-    const [enteredSaveName, setEnteredSaveName] = useState("");
-    const [enteredSaveSurname, setEnteredSaveSurname] = useState("");
-    const [enteredSaveAge, setEntereSavedAge] = useState("");
+    const [enteredSaveName, setEnteredSaveName] = useState(user.name);
+    const [enteredSaveSurname, setEnteredSaveSurname] = useState(user.surname);
+    const [enteredSaveAge, setEntereSavedAge] = useState(user.age);
 
     const [error, setError] = useState();
 
@@ -35,7 +35,7 @@ export const UserEditElement = React.memo(({ user, dispatch }) => {
             return;
         }
 
-        dispatch({ type: 'SAVE_EDIT_USER', name: enteredSaveName, surname: enteredSaveSurname, age: enteredSaveAge })
+        dispatch({ type: 'SAVE_EDIT_USER', name: enteredSaveName, surname: enteredSaveSurname, age: enteredSaveAge, id: user.id })
 
     };
 
@@ -57,7 +57,7 @@ export const UserEditElement = React.memo(({ user, dispatch }) => {
     return (
         <>
             <li className={styled.wrapperElement}>
-                <form onSubmit={addUserHandler}>
+                <form >
                     <div className={styled.inputGroup}>
                         <label htmlFor="username">Username</label>
                         <input
@@ -86,7 +86,7 @@ export const UserEditElement = React.memo(({ user, dispatch }) => {
                             onChange={userAgeChangeHandler}
                         />
                     </div>
-                    <Button>Save</Button>
+                    <Button onClick={addUserHandler}>Confirm</Button>
                 </form>
             </li>
         </>
