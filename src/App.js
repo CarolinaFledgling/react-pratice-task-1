@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useReducer } from "react";
 import "./App.css";
 import { AddUser } from "./components/Users/AddUser";
 import { v4 as uuidv4 } from 'uuid';
@@ -26,7 +26,9 @@ function reducerFn(latestState, actionDispatched) {
   if (actionDispatched.type === 'RESET_AGE') {
 
     return latestState.map((user) => {
+      console.log('user from disptach action', { user })
       if (user.id === actionDispatched.id) {
+        console.log('user from id action', { user })
         return {
           ...user,
           age: 0
@@ -52,8 +54,16 @@ function reducerFn(latestState, actionDispatched) {
   }
 
   if (actionDispatched.type === 'DELETE_ALL') {
-
     return []
+  }
+
+  if (actionDispatched.type === 'RESET_ALL_AGES') {
+    return latestState.map((user) => {
+      return {
+        ...user,
+        age: 0
+      }
+    })
   }
 
 
@@ -62,7 +72,7 @@ function reducerFn(latestState, actionDispatched) {
 }
 
 
-// TASKS TO DO , add btns
+// [TODO] TASKS TO DO , add buttons in the Toolbar
 
 // Delete all 
 // Reset all ages to 0

@@ -8,7 +8,7 @@ const UserEditElement = React.memo(({ user, dispatch }) => {
         <p>
             {user.name} {user.surname}, {user.age} years old
         </p>
-        <Button onClick={() => dispatch({ type: 'DELETE_USER', id: user.id })}>CONFIRM EDIT</Button>
+        <Button onClick={() => dispatch({ type: 'EDIT_USER', id: user.id })}>CONFIRM EDIT</Button>
 
     </li>;
 })
@@ -35,6 +35,7 @@ export const UserList = React.memo(({ users, dispatch }) => {
         <>
             <Card className={styled.toolbar}>
                 <Button className={styled.btn} onClick={() => dispatch({ type: 'DELETE_ALL' })}>DELETE ALL USERS</Button>
+                <Button className={styled.btn} onClick={() => dispatch({ type: 'RESET_ALL_AGES' })}>RESET ALL AGES</Button>
             </Card>
             <Card className={styled.users}>
                 {users.length === 0 ? (
