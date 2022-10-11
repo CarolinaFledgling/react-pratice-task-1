@@ -1,0 +1,16 @@
+.wrapperElement {
+  display: flex;
+  background-color: rgba(255, 64, 0, 0.141);
+  width: 100%;
+}
+
+.inputGroup {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.inputGroup label {
+  margin-right: 10px;
+}

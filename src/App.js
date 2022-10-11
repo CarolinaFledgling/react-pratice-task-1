@@ -1,4 +1,4 @@
-import { useReducer,useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import "./App.css";
 import { AddUser } from "./components/Users/AddUser";
 import { v4 as uuidv4 } from 'uuid';
@@ -65,6 +65,31 @@ function reducerFn(latestState, actionDispatched) {
         age: 0
       }
     })
+  }
+
+  if (actionDispatched.type === 'EDIT_USER') {
+    const newListUser = latestState.map((user) => {
+      if (user.id === actionDispatched.id) {
+        return {
+          ...user,
+          isEdit: true,
+        }
+      }
+      return user
+    })
+    return newListUser
+  }
+
+  if (actionDispatched.type === 'SAVE_EDIT_USER') {
+    const newEditedUser = {
+      id: uuidv4(),
+      name: actionDispatched.name,
+      surname: actionDispatched.surname,
+      age: actionDispatched.age,
+      isEdit: false,
+    }
+    return [...latestState, newEditedUser]
+
   }
 
 
