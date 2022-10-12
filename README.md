@@ -22,9 +22,9 @@ like components, props, state, lifting state, styling…
 After building this small project with basic core patterns I decided to rebuild that 
 project to start practicing using useReducer and useMemo hooks.
 
-Go to [study-reducer] branch (https://github.com/CarolinaFledgling/react-pratice-task-1/tree/study-reducer)
+Go to branch:  [study-reducer](https://github.com/CarolinaFledgling/react-pratice-task-1/tree/study-reducer)
 
-## basic features app
+## Basic features app
 
 - add user to the list 
 - delete user from the list 
