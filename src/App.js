@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Toolbar } from "./components/Toolbar/Toolbar";
 
 function reducerFn(latestState, actionDispatched) {
+
   if (actionDispatched.type === "NEW_USER") {
     const newUser = {
       id: uuidv4(),
@@ -53,6 +54,7 @@ function reducerFn(latestState, actionDispatched) {
   }
 
   if (actionDispatched.type === "START_EDIT_USER") {
+
     const newListUser = latestState.map((user) => {
       if (user.id === actionDispatched.id) {
         return {
@@ -102,6 +104,10 @@ function reducerFn(latestState, actionDispatched) {
   if (actionDispatched.type === "SEARCH_VALUE") {
     console.log("search user", actionDispatched);
 
+    if(actionDispatched.inputValue === ""){
+      return latestState
+    }
+
     const filteredList = latestState.filter((user) => {
       return user.name
         .toLowerCase()
@@ -116,7 +122,7 @@ function reducerFn(latestState, actionDispatched) {
   if (actionDispatched.type === "SORT_BY_AGES") {
     console.log("sort", actionDispatched);
 
-    // copy of array to not mutate the original state
+    // copy of array, not mutate the original state
     const sortUsersArray = [...latestState];
 
     sortUsersArray.sort(function (elemA, elemB) {
