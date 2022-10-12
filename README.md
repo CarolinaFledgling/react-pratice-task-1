@@ -38,8 +38,8 @@ Go to branch:  [study-reducer](https://github.com/CarolinaFledgling/react-pratic
 
 ## Focusing on :
 
-- Practicing using useReducer step by step🚀
-- Practicing using useMemo 🚀
+- Practice in using useReducer step by step🚀
+- Practice in using useMemo 🚀
 - Working with JavaScript Arrays Methods 🚀
 
 
