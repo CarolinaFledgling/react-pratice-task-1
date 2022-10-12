@@ -8,7 +8,7 @@ import { UserList } from "./UserList";
 
 const ButtonMemo = memo(() => <Button type="submit">Add User</Button>)
 
-export const AddUser = ({  users, dispatch }) => {
+export const AddUser = ({ users, dispatch }) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredSurname, setEnteredSurname] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
@@ -39,7 +39,7 @@ export const AddUser = ({  users, dispatch }) => {
     }
 
     dispatch({ type: 'NEW_USER', name: enteredName, surname: enteredSurname, age: enteredAge })
-  
+
 
     setEnteredAge("");
     setEnteredName("");
@@ -71,7 +71,7 @@ export const AddUser = ({  users, dispatch }) => {
           />
         )}
         <Card className={styled.input}>
-          <form onSubmit={addUserHandler}>
+          <form onSubmit={addUserHandler} autoComplete="off">
             <label htmlFor="username">Username</label>
             <input
               id="username"
@@ -97,7 +97,7 @@ export const AddUser = ({  users, dispatch }) => {
           </form>
         </Card>
       </Wrapper>
-      <UserList users={users} dispatch={dispatch}  />
+      <UserList users={users} dispatch={dispatch} />
     </div>
   );
 };

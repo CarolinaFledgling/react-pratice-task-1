@@ -8,8 +8,7 @@ export const Toolbar = ({ dispatch }) => {
 
     console.log(searchValueInput)
 
-    dispatch({ type: "SEARCH_VALUE", searchedUser: searchValueInput })
-
+   
     return (
         <>
             <Card className={styled.toolbar}>
@@ -22,9 +21,7 @@ export const Toolbar = ({ dispatch }) => {
                         placeholder="search.."
                         type="text"
                         id="search"
-                        onChange={(event) => {
-                            setSearchValueInput(event.target.value);
-                        }}
+                        onChange={(e) => dispatch({ type: "SEARCH_VALUE", inputValue: e.target.value })}
                     />
                 </div>
             </Card>
