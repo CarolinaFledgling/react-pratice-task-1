@@ -118,7 +118,7 @@ const[state, dispatchFn] = useReducer(reducerFn, initialState, initFn)
 
 ```
 
-- 🚩 useRContext hook 🤔
+- 🚩 useContext hook 🤔
 
 Instead of using render props, we can pass the entire context object to React.useContext() to consume context at the top of our component.
 
