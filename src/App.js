@@ -3,11 +3,12 @@ import "./App.css";
 import { AddUser } from "./components/Users/AddUser";
 import { v4 as uuidv4 } from "uuid";
 import { Toolbar } from "./components/Toolbar/Toolbar";
-import { ReducerContext } from "../ReducerContext.js";
+import { ReducerContext } from "./ReducerContext.js";
 
 // -------------REDUCER
 
 function reducerFn(latestState, actionDispatched) {
+
   if (actionDispatched.type === "NEW_USER") {
     const newUser = {
       id: uuidv4(),
@@ -191,7 +192,7 @@ const initState = [];
 
 const ReducerProvider = ({ children }) => {
   // callback fn will get initState
-  const [usersList, dispatch] = useReducer(
+  const [userList, dispatch] = useReducer(
     reducerFn,
     initState,
     (initState) => {
@@ -205,11 +206,11 @@ const ReducerProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(usersList));
-  }, [usersList]);
+    localStorage.setItem("users", JSON.stringify(userList));
+  }, [userList]);
 
   return (
-    <ReducerContext.Provider value={{ usersList, dispatch }}>
+    <ReducerContext.Provider value={{ userList, dispatch }}>
       {children}
     </ReducerContext.Provider>
   );

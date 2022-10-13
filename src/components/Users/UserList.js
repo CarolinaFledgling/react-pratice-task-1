@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ReducerContext } from "../../ReducerContext";
 import { Button } from "../UI/Button";
 import { Card } from "../UI/Card";
 import { UserEditElement } from "./UserEditElement/UserEditElement";
@@ -9,7 +10,9 @@ import styled from "./UserList.module.css";
 
 
 
-const UserListElement = React.memo(({ user, dispatch }) => {
+const UserListElement = React.memo(({ user }) => {
+    //Context
+    const { dispatch } = useContext(ReducerContext)
 
     console.log('user', user)
     return (
@@ -30,18 +33,19 @@ const UserListElement = React.memo(({ user, dispatch }) => {
     )
 })
 
-export const UserList = React.memo(({ users, dispatch }) => {
-    console.log(users);
+export const UserList = React.memo(() => {
+    //Context
+    const { userList, dispatch } = useContext(ReducerContext)
 
     return (
         <>
 
             <Card className={styled.users}>
-                {users.length === 0 ? (
+                {userList.length === 0 ? (
                     ""
                 ) : (
                     <ul>
-                        {users.map((user) => {
+                        {userList.map((user) => {
                             return (
                                 user.isEdit ? <UserEditElement key={`user-${user.id}`} user={user} dispatch={dispatch} /> : <UserListElement key={user.id} user={user} dispatch={dispatch} />
 

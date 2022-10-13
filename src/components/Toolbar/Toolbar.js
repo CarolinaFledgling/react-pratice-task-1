@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { ReducerContext } from '../../ReducerContext'
 import { Button } from '../UI/Button'
 import { Card } from '../UI/Card'
 import styled from './Tollbar.module.css'
 
-export const Toolbar = ({ dispatch }) => {
+export const Toolbar = () => {
 
+    const { dispatch } = useContext(ReducerContext)
 
-   
     return (
         <>
             <Card className={styled.toolbar}>

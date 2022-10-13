@@ -1,4 +1,5 @@
-import React, { memo, useState } from "react";
+import React, { memo, useContext, useState } from "react";
+import { ReducerContext } from "../../ReducerContext";
 import { Wrapper } from "../Helpers/Wrapper";
 import { Button } from "../UI/Button";
 import { Card } from "../UI/Card";
@@ -8,10 +9,13 @@ import { UserList } from "./UserList";
 
 const ButtonMemo = memo(() => <Button type="submit">Add User</Button>)
 
-export const AddUser = ({ users, dispatch }) => {
+export const AddUser = () => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredSurname, setEnteredSurname] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
+
+  //Context
+  const {userList, dispatch } = useContext(ReducerContext)
 
   const [error, setError] = useState();
 
@@ -97,7 +101,7 @@ export const AddUser = ({ users, dispatch }) => {
           </form>
         </Card>
       </Wrapper>
-      <UserList users={users} dispatch={dispatch} />
+      <UserList />
     </div>
   );
 };
