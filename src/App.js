@@ -12,6 +12,7 @@ function reducerFn(latestState, actionDispatched) {
       name: actionDispatched.name,
       surname: actionDispatched.surname,
       age: actionDispatched.age,
+      isCheckBox: false,
     };
     return [...latestState, newUser];
   }
@@ -56,14 +57,17 @@ function reducerFn(latestState, actionDispatched) {
   if (actionDispatched.type === "START_EDIT_USER") {
 
     const newListUser = latestState.map((user) => {
+
       if (user.id === actionDispatched.id) {
         return {
           ...user,
           isEdit: true,
+          isCheckBox: false,
         };
       }
       return user;
     });
+
     return newListUser;
   }
 
@@ -78,12 +82,27 @@ function reducerFn(latestState, actionDispatched) {
           surname: actionDispatched.surname,
           age: actionDispatched.age,
           isEdit: false,
+          isCheckBox: false,
         };
       }
 
       return user;
     });
     return newListUser;
+  }
+
+
+  if (actionDispatched.type === 'START_CHECKBOX_USER') {
+    const newListUser = latestState.map((user) => {
+      if (user.id === actionDispatched.id) {
+        return {
+          ...user,
+          isCheckBox: true,
+        }
+      }
+      return user
+    })
+    return newListUser
   }
 
   // TOOLBAR actions
@@ -104,7 +123,7 @@ function reducerFn(latestState, actionDispatched) {
   if (actionDispatched.type === "SEARCH_VALUE") {
     console.log("search user", actionDispatched);
 
-    if(actionDispatched.inputValue === ""){
+    if (actionDispatched.inputValue === "") {
       return latestState
     }
 
@@ -148,16 +167,32 @@ function reducerFn(latestState, actionDispatched) {
     return sortUsersArray;
   }
 
+
+
+
+
+  if (actionDispatched.type === 'RESET_NAME_CHECKED') {
+    const newListUser = latestState.map((user) => {
+      if (user.isCheckBox === true) {
+        return {
+          ...user,
+          name: 'RESET NAME',
+          isCheckBox: false,
+        }
+      }
+      return user
+    })
+    return newListUser
+  }
+
+
+
+
+
+
   // throw new Error();
   return latestState;
 }
-
-// [TODO] TASKS TO DO , add buttons in the Toolbar
-// Delete all
-// Reset all ages to 0
-// Sort by AGE
-// EDIT
-
 
 
 // here we can add initial values if we want

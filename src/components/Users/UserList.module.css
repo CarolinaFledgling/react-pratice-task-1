@@ -1,7 +1,7 @@
 .users {
   margin: 2rem auto;
   width: 90%;
-  max-width: 40rem;
+  max-width: 50rem;
 }
 
 .users ul {
@@ -18,7 +18,7 @@
 .wrapperElement {
   width: 90%;
   display: flex;
-  justify-content: space-between;
+
   align-items: flex-end;
 }
 
@@ -27,4 +27,12 @@
   width: 90%;
 }
 
+.textGroup {
+  display: flex;
+  align-items: flex-start;
+}
 
+.textGroup span {
+  padding: 0 0.3rem;
+  font-weight: 600;
+}

@@ -15,7 +15,8 @@ export const Toolbar = ({ dispatch }) => {
                 <Button className={styled.btn} onClick={() => dispatch({ type: 'DELETE_ALL' })}>DELETE ALL USERS</Button>
                 <Button className={styled.btn} onClick={() => dispatch({ type: 'RESET_ALL_AGES' })}>RESET ALL AGES</Button>
                 <Button className={styled.btn} onClick={() => dispatch({ type: 'SORT_BY_AGES' })}>SORT by Ages</Button>
-                <div className="form-group">
+                <Button className={styled.btn} onClick={() => dispatch({ type: 'RESET_NAME_CHECKED' })}>RESET NAME in CHECKED USERS</Button>
+                <div className={styled.formGroup}>
                     <label htmlFor="search"> Search: </label>
                     <input
                         placeholder="search.."
