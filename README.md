@@ -2,14 +2,21 @@
 
 In  this project, I intend to practice the best way to build React app
 
-This project is divided into 2 branches : main and study-reducer
-
-On branch main I am building a project to practice all these core patterns and concepts that are important for React,
-like components, props, state, lifting state, styling…
-
 - where we create a bunch of reused components, 🚀
 - where they have small isolated pieces of HTML code and logic 🚀
 - where every component really has its own task 🚀
+
+I'm dividing this project  into 3 branches:
+
+* main
+* study-reducer 
+* study-context-reducer
+
+
+### Branch main
+
+On branch main I am building a project to practice all these core patterns and concepts that are important for React,
+like components, props, state, lifting state, styling…
 
 ## Focusing on :
 
@@ -19,8 +26,9 @@ like components, props, state, lifting state, styling…
 - Implementing modal using React Portal approach. 🚀
 
 
-After building this small project with basic core patterns I decided to rebuild that 
-project to start practicing using useReducer and useMemo hooks.
+### Branch study-reducer
+After building this small project with basic core patterns I decided to rebuild and extend with more features in order to 
+practice using useReducer and useMemo hooks.
 
 Go to branch:  [study-reducer](https://github.com/CarolinaFledgling/react-pratice-task-1/tree/study-reducer)
 
@@ -34,7 +42,8 @@ Go to branch:  [study-reducer](https://github.com/CarolinaFledgling/react-pratic
 - sort user by age from lowest to highest
 - search user by name 
 - delete all users
-- reset all users age 
+- reset all users age
+- reset name in users with checked checkbox 
 
 ## Focusing on :
 
@@ -42,6 +51,19 @@ Go to branch:  [study-reducer](https://github.com/CarolinaFledgling/react-pratic
 - Practice in using useMemo 🚀
 - Working with JavaScript Arrays Methods 🚀
 
+
+### Branch study-context-reducer
+
+On this branch I wanted to learn how to useContext hook.
+
+React context helps us avoid the problem of props drilling.
+
+Props drilling is a term to describe when you pass props down multiple levels to a nested component, 
+through components that don't need it.
+
+I created context using **createContext**method, next I wrapped the context Provider around component tree.
+I put value which I will need it in components.
+Next I read values within components by using the context consumer. 
 
 
 ## What I learned :
@@ -88,6 +110,10 @@ const[state, dispatchFn] = useReducer(reducerFn, initialState, initFn)
 
 
 ```
+
+- 🚩 useRContext hook 🤔
+
+Instead of using render props, we can pass the entire context object to React.useContext() to consume context at the top of our component.
 
 ## Run Locally
 

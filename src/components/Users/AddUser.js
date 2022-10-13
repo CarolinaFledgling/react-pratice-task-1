@@ -15,7 +15,9 @@ export const AddUser = () => {
   const [enteredAge, setEnteredAge] = useState("");
 
   //Context
-  const {userList, dispatch } = useContext(ReducerContext)
+  const { dispatch, themeToggle } = useContext(ReducerContext)
+
+  // [TODO] add btn which change theme 
 
   const [error, setError] = useState();
 
@@ -65,7 +67,7 @@ export const AddUser = () => {
   };
 
   return (
-    <div>
+    <div style={themeToggle ? { background: "#011C27" } : {}}>
       <Wrapper>
         {error && (
           <ErrorModal
@@ -100,8 +102,8 @@ export const AddUser = () => {
             <ButtonMemo />
           </form>
         </Card>
+        <UserList />
       </Wrapper>
-      <UserList />
     </div>
   );
 };

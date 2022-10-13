@@ -1,9 +1,10 @@
-import { useReducer, useEffect, createContext } from "react";
+import { useReducer, useEffect, createContext, useState, useContext } from "react";
 import "./App.css";
 import { AddUser } from "./components/Users/AddUser";
 import { v4 as uuidv4 } from "uuid";
 import { Toolbar } from "./components/Toolbar/Toolbar";
 import { ReducerContext } from "./ReducerContext.js";
+import { Button } from "./components/UI/Button";
 
 // -------------REDUCER
 
@@ -191,6 +192,16 @@ const initState = [];
 
 
 const ReducerProvider = ({ children }) => {
+  // Context
+
+  const [themeToggle, setTheme] = useState(false)
+
+  const toggleFunction = () => {
+    setTheme(!themeToggle)
+  }
+
+
+
   // callback fn will get initState
   const [userList, dispatch] = useReducer(
     reducerFn,
@@ -210,19 +221,19 @@ const ReducerProvider = ({ children }) => {
   }, [userList]);
 
   return (
-    <ReducerContext.Provider value={{ userList, dispatch }}>
+    <ReducerContext.Provider value={{ userList, dispatch, themeToggle, toggleFunction }}>
       {children}
     </ReducerContext.Provider>
   );
 };
 
 function App() {
+
+ 
   return (
     <ReducerProvider>
-      <div className="App">
         <Toolbar />
         <AddUser />
-      </div>
     </ReducerProvider>
   );
 }

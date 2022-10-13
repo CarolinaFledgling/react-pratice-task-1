@@ -12,7 +12,7 @@ import styled from "./UserList.module.css";
 
 const UserListElement = React.memo(({ user }) => {
     //Context
-    const { dispatch } = useContext(ReducerContext)
+    const { dispatch, actionLabel } = useContext(ReducerContext)
 
     console.log('user', user)
     return (
@@ -24,7 +24,7 @@ const UserListElement = React.memo(({ user }) => {
                 <span>{user.age}  years old</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", marginLeft: "auto" }}>
-                <Button onClick={() => dispatch({ type: 'DELETE_USER', id: user.id })}>Delete</Button>
+                <Button onClick={() => dispatch({ type: 'DELETE_USER', id: user.id })}>Delete {actionLabel}</Button>
                 <Button onClick={() => dispatch({ type: 'RESET_AGE', id: user.id })}>Reset Age to 0</Button>
                 <Button onClick={() => dispatch({ type: 'RESET_SURNAME', id: user.id })}>Reset SURNAME TO 'Kowalski' </Button>
                 <Button onClick={() => dispatch({ type: 'START_EDIT_USER', id: user.id })}>Edit</Button>
