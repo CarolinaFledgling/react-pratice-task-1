@@ -1,11 +1,13 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, createContext } from "react";
 import "./App.css";
 import { AddUser } from "./components/Users/AddUser";
 import { v4 as uuidv4 } from "uuid";
 import { Toolbar } from "./components/Toolbar/Toolbar";
+import { ReducerContext } from "../ReducerContext.js";
+
+// -------------REDUCER
 
 function reducerFn(latestState, actionDispatched) {
-
   if (actionDispatched.type === "NEW_USER") {
     const newUser = {
       id: uuidv4(),
@@ -55,9 +57,7 @@ function reducerFn(latestState, actionDispatched) {
   }
 
   if (actionDispatched.type === "START_EDIT_USER") {
-
     const newListUser = latestState.map((user) => {
-
       if (user.id === actionDispatched.id) {
         return {
           ...user,
@@ -91,18 +91,17 @@ function reducerFn(latestState, actionDispatched) {
     return newListUser;
   }
 
-
-  if (actionDispatched.type === 'START_CHECKBOX_USER') {
+  if (actionDispatched.type === "START_CHECKBOX_USER") {
     const newListUser = latestState.map((user) => {
       if (user.id === actionDispatched.id) {
         return {
           ...user,
           isCheckBox: true,
-        }
+        };
       }
-      return user
-    })
-    return newListUser
+      return user;
+    });
+    return newListUser;
   }
 
   // TOOLBAR actions
@@ -124,7 +123,7 @@ function reducerFn(latestState, actionDispatched) {
     console.log("search user", actionDispatched);
 
     if (actionDispatched.inputValue === "") {
-      return latestState
+      return latestState;
     }
 
     const filteredList = latestState.filter((user) => {
@@ -133,8 +132,8 @@ function reducerFn(latestState, actionDispatched) {
         .includes(actionDispatched.inputValue.toLowerCase());
     });
 
-    console.log('filtered arr', filteredList)
-    console.log('latestState', latestState)
+    console.log("filtered arr", filteredList);
+    console.log("latestState", latestState);
     return filteredList;
   }
 
@@ -162,43 +161,35 @@ function reducerFn(latestState, actionDispatched) {
       return 0;
     });
 
-    console.log('sort', sortUsersArray)
+    console.log("sort", sortUsersArray);
 
     return sortUsersArray;
   }
 
-
-
-
-
-  if (actionDispatched.type === 'RESET_NAME_CHECKED') {
+  if (actionDispatched.type === "RESET_NAME_CHECKED") {
     const newListUser = latestState.map((user) => {
       if (user.isCheckBox === true) {
         return {
           ...user,
-          name: 'RESET NAME',
+          name: "RESET NAME",
           isCheckBox: false,
-        }
+        };
       }
-      return user
-    })
-    return newListUser
+      return user;
+    });
+    return newListUser;
   }
-
-
-
-
-
 
   // throw new Error();
   return latestState;
 }
 
-
 // here we can add initial values if we want
 const initState = [];
 
-function App() {
+
+
+const ReducerProvider = ({ children }) => {
   // callback fn will get initState
   const [usersList, dispatch] = useReducer(
     reducerFn,
@@ -218,10 +209,20 @@ function App() {
   }, [usersList]);
 
   return (
-    <div className="App">
-      <Toolbar dispatch={dispatch} />
-      <AddUser dispatch={dispatch} users={usersList} />
-    </div>
+    <ReducerContext.Provider value={{ usersList, dispatch }}>
+      {children}
+    </ReducerContext.Provider>
+  );
+};
+
+function App() {
+  return (
+    <ReducerProvider>
+      <div className="App">
+        <Toolbar />
+        <AddUser />
+      </div>
+    </ReducerProvider>
   );
 }
 

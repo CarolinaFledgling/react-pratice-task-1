@@ -4,9 +4,7 @@ import { Card } from '../UI/Card'
 import styled from './Tollbar.module.css'
 
 export const Toolbar = ({ dispatch }) => {
-    const [searchValueInput, setSearchValueInput] = useState("");
 
-    console.log(searchValueInput)
 
    
     return (
