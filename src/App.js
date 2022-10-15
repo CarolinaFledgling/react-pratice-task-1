@@ -194,10 +194,10 @@ const initState = [];
 const ReducerProvider = ({ children }) => {
   // Context
 
-  const [themeToggle, setTheme] = useState(false)
+  const [theme, setTheme] = useState(false)
 
-  const toggleFunction = () => {
-    setTheme(!themeToggle)
+  const toggleTheme = () => {
+    setTheme(!theme)
   }
 
 
@@ -221,7 +221,7 @@ const ReducerProvider = ({ children }) => {
   }, [userList]);
 
   return (
-    <ReducerContext.Provider value={{ userList, dispatch, themeToggle, toggleFunction }}>
+    <ReducerContext.Provider value={{ userList, dispatch, theme, toggleTheme }}>
       {children}
     </ReducerContext.Provider>
   );
