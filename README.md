@@ -12,6 +12,9 @@ I'm dividing this project  into 3 branches:
 * study-reducer 
 * study-context-reducer
 
+### DEMO
+
+[DEMO, deploy from study-reducer branch ](https://delightful-semifreddo-59e69e.netlify.app/)
 
 ### Branch main
 
@@ -24,6 +27,7 @@ like components, props, state, lifting state, styling…
 - Showing Error Modal 🚀
 - Conditional Loading Message 🚀
 - Implementing modal using React Portal approach. 🚀
+- Adding Local storage to store and retrieve data in the browser.
 
 
 ### Branch study-reducer
