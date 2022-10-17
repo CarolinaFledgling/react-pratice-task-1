@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useMemo } from "react";
 import "./App.css";
 import { AddUser } from "./components/Users/AddUser";
 import { v4 as uuidv4 } from "uuid";
@@ -14,19 +14,19 @@ function reducerFn(latestState, actionDispatched) {
       age: actionDispatched.age,
       isCheckBox: false,
     };
-    return [...latestState, newUser];
+    return { ...latestState, userList: [...latestState.userList, newUser] };
   }
 
   if (actionDispatched.type === "DELETE_USER") {
-    const filteredUser = latestState.filter((user) => {
+    const filteredUser = latestState.userList.filter((user) => {
       return user.id !== actionDispatched.id;
     });
 
-    return filteredUser;
+    return { ...latestState, userList: filteredUser };
   }
 
   if (actionDispatched.type === "RESET_AGE") {
-    return latestState.map((user) => {
+    const newUserList = latestState.userList.map((user) => {
       // console.log('user from disptach action', { user })
 
       if (user.id === actionDispatched.id) {
@@ -38,11 +38,13 @@ function reducerFn(latestState, actionDispatched) {
       }
       return user;
     });
+
+    return { ...latestState, userList: newUserList }
   }
 
   if (actionDispatched.type === "RESET_SURNAME") {
     // return a new array with the list of users, but only in intended user we change the surname
-    const newUserList = latestState.map((user) => {
+    const newUserList = latestState.userList.map((user) => {
       if (user.id === actionDispatched.id) {
         return {
           ...user,
@@ -51,12 +53,13 @@ function reducerFn(latestState, actionDispatched) {
       }
       return user;
     });
-    return newUserList;
+
+    return { ...latestState, userList: newUserList }
   }
 
   if (actionDispatched.type === "START_EDIT_USER") {
 
-    const newListUser = latestState.map((user) => {
+    const newListUser = latestState.userList.map((user) => {
 
       if (user.id === actionDispatched.id) {
         return {
@@ -68,12 +71,12 @@ function reducerFn(latestState, actionDispatched) {
       return user;
     });
 
-    return newListUser;
+    return { ...latestState, userList: newListUser };
   }
 
   if (actionDispatched.type === "SAVE_EDIT_USER") {
     // console.log('action user', actionDispatched)
-    const newListUser = latestState.map((user) => {
+    const newListUser = latestState.userList.map((user) => {
       if (user.id === actionDispatched.id) {
         // console.log('edit user', user)
         return {
@@ -88,12 +91,13 @@ function reducerFn(latestState, actionDispatched) {
 
       return user;
     });
-    return newListUser;
+
+    return { ...latestState, userList: newListUser };
   }
 
 
   if (actionDispatched.type === 'START_CHECKBOX_USER') {
-    const newListUser = latestState.map((user) => {
+    const newListUser = latestState.userList.map((user) => {
       if (user.id === actionDispatched.id) {
         return {
           ...user,
@@ -102,54 +106,42 @@ function reducerFn(latestState, actionDispatched) {
       }
       return user
     })
-    return newListUser
+    return { ...latestState, userList: newListUser };
   }
 
   // TOOLBAR actions
 
   if (actionDispatched.type === "DELETE_ALL") {
-    return [];
+    return { ...latestState, userList: [] };
   }
 
   if (actionDispatched.type === "RESET_ALL_AGES") {
-    return latestState.map((user) => {
+    const newListUser = latestState.userList.map((user) => {
       return {
         ...user,
         age: 0,
       };
     });
+
+    return { ...latestState, userList: newListUser };
   }
 
   if (actionDispatched.type === "SEARCH_VALUE") {
-    console.log("search user", actionDispatched);
-
-    if (actionDispatched.inputValue === "") {
-      return latestState
-    }
-
-    const filteredList = latestState.filter((user) => {
-      return user.name
-        .toLowerCase()
-        .includes(actionDispatched.inputValue.toLowerCase());
-    });
-
-    console.log('filtered arr', filteredList)
-    console.log('latestState', latestState)
-    return filteredList;
+    return { ...latestState, searchInput: actionDispatched.inputValue };
   }
 
   if (actionDispatched.type === "SORT_BY_AGES") {
     console.log("sort", actionDispatched);
 
     // copy of array, not mutate the original state
-    const sortUsersArray = [...latestState];
+    const sortUsersArray = [...latestState.userList];
 
     sortUsersArray.sort(function (elemA, elemB) {
       console.log("sort array", sortUsersArray);
-      const userA = elemA.age;
-      const userB = elemB.age;
-      console.log("userA", userA);
-      console.log("userB", userB);
+      const userA = Number(elemA.age);
+      const userB = Number(elemB.age);
+      console.log("[debug] userA", userA);
+      console.log("[debug] userB", userB);
 
       if (userA > userB) {
         return 1;
@@ -164,15 +156,10 @@ function reducerFn(latestState, actionDispatched) {
 
     console.log('sort', sortUsersArray)
 
-    return sortUsersArray;
+    return { ...latestState, userList: sortUsersArray };
   }
-
-
-
-
-
   if (actionDispatched.type === 'RESET_NAME_CHECKED') {
-    const newListUser = latestState.map((user) => {
+    const newListUser = latestState.userList.map((user) => {
       if (user.isCheckBox === true) {
         return {
           ...user,
@@ -182,13 +169,8 @@ function reducerFn(latestState, actionDispatched) {
       }
       return user
     })
-    return newListUser
+    return { ...latestState, userList: newListUser };
   }
-
-
-
-
-
 
   // throw new Error();
   return latestState;
@@ -196,31 +178,39 @@ function reducerFn(latestState, actionDispatched) {
 
 
 // here we can add initial values if we want
-const initState = [];
+const initState = { userList: [], searchInput: '' };
 
 function App() {
   // callback fn will get initState
-  const [usersList, dispatch] = useReducer(
+  const [{ userList, searchInput }, dispatch] = useReducer(
     reducerFn,
     initState,
     (initState) => {
       const localStorageValue = localStorage.getItem("users");
       if (localStorageValue) {
         const users = JSON.parse(localStorageValue);
-        return users;
+        return { ...initState, userList: users };
       }
       return initState;
     }
   );
 
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(usersList));
-  }, [usersList]);
+    localStorage.setItem("users", JSON.stringify(userList));
+  }, [userList]);
+
+  const filteredUserList = useMemo(() => {
+    return userList.filter((user) => {
+      return user.name
+        .toLowerCase()
+        .includes(searchInput.toLowerCase());
+    });
+  }, [searchInput, userList])
 
   return (
     <div className="App">
       <Toolbar dispatch={dispatch} />
-      <AddUser dispatch={dispatch} users={usersList} />
+      <AddUser dispatch={dispatch} users={filteredUserList} />
     </div>
   );
 }
